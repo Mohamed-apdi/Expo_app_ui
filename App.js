@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NativeWindStyleSheet } from "nativewind";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "./screens/Home";
+import AboutScreen from "./screens/About";
+import ContactScreen from "./screens/Contact";
+import { AppWindow,  Info, Phone } from 'lucide-react-native'; 
+const Tab = createBottomTabNavigator();
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: '#ffffff', 
+            borderTopColor: 'transparent',
+          },
+          headerShown: false, 
+          tabBarInactiveTintColor: "#000",
+        }}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{
+            tabBarIcon: ({ color }) => <AppWindow color={color} />, 
+          }} 
+        />
+        <Tab.Screen 
+          name="About" 
+          component={AboutScreen} 
+          options={{
+            tabBarIcon: ({ color }) => <Info color={color} />, 
+          }} 
+        />
+        <Tab.Screen 
+          name="Contact" 
+          component={ContactScreen} 
+          options={{
+            tabBarIcon: ({ color }) => <Phone color={color} />,
+          }} 
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
 });
